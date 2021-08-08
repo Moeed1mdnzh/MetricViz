@@ -79,12 +79,9 @@ class Mapper:
 		#===============================================
 		cv2.line(graph, (20, H-10), (20, 10), color, 2)
 		cv2.line(graph, (20, H-10), (W, H-10), color, 2)
-<<<<<<< HEAD
-=======
 		#===============================================
 		#Draw xticks and yticks based on global points
 		#======================================================================================================
->>>>>>> plot_branch
 		xticks = [[[50, H-15], [50, H-5]], [[W-20, H-15], [W-20, H-5]]]
 		yticks = [[[15, H-40], [25, H-40]], [[15, 30], [25, 30]]] 
 		minimas[1], maximas[0] = maximas[0], minimas[1]  
@@ -97,10 +94,7 @@ class Mapper:
 			ytick[0][1] -= 5
 			cv2.putText(graph, str(int(gb_pt1)), tuple(xtick[0]), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
 			cv2.putText(graph, str(round(gb_pt2, 2)), tuple(ytick[0]), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
-<<<<<<< HEAD
-=======
 		#======================================================================================================
->>>>>>> plot_branch
 		return graph
 
 #--------------------------------------------------------------------------------------------------------------|
@@ -123,17 +117,3 @@ class Mapper:
 		graph = self.show_legend(graph, [metrics, self.colors], self.bg_color)
 		cv2.imshow("", graph)
 		cv2.waitKey(0)
-<<<<<<< HEAD
-
-#--------------------------------------------------------------------------------------------------------------|
-
-def main():
-	mapper = Mapper(np.array([[[1, 0.8], [2, 0.5], [3, 0.7], [4, 0.3], [5, 0.2]]]),
-			[(150, 0, 150)], bg_color=(255, 0, 0))
-	graph = mapper.plot(["loss", "accuracy"]) 
-
-
-if __name__ == '__main__':
-	main()
-=======
->>>>>>> plot_branch
