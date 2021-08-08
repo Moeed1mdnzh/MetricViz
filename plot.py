@@ -58,12 +58,18 @@ class Mapper:
 		color = (int(color[0]), int(color[1]), int(color[2]))
 		cv2.line(graph, (20, H-10), (20, 10), color, 2)
 		cv2.line(graph, (20, H-10), (W, H-10), color, 2)
-		xticks = [[[30, H-20], [30, H]], [[W-10, H-20], [W-10, H]]]
-		for xtick in xticks:
-			cv2.line(graph, tuple(xtick[0]), tuple(xtick[1]))
-		yticks [] 
-		for minima, maxima in zip(minimas, maximas):
-			pass
+		xticks = [[[50, H-15], [50, H-5]], [[W-20, H-15], [W-20, H-5]]]
+		yticks = [[[15, H-40], [25, H-40]], [[15, 30], [25, 30]]] 
+		minimas[1], maximas[0] = maximas[0], minimas[1]  
+		for xtick, ytick, gb_pt1, gb_pt2 in zip(xticks, yticks, minimas, maximas):
+			cv2.line(graph, tuple(xtick[0]), tuple(xtick[1]), color, 2)
+			cv2.line(graph, tuple(ytick[0]), tuple(ytick[1]), color, 2)
+			xtick[0][0] -= 5
+			xtick[0][1] -= 5
+			ytick[0][0] += 10 
+			ytick[0][1] -= 5
+			cv2.putText(graph, str(int(gb_pt1)), tuple(xtick[0]), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
+			cv2.putText(graph, str(round(gb_pt2, 2)), tuple(ytick[0]), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
 		return graph
 
 #--------------------------------------------------------------------------------------------------------------|
@@ -89,7 +95,7 @@ class Mapper:
 
 def main():
 	mapper = Mapper(np.array([[[1, 0.8], [2, 0.5], [3, 0.7], [4, 0.3], [5, 0.2]]]),
-			[(150, 0, 150)], bg_color=(255, 255, 255))
+			[(150, 0, 150)], bg_color=(255, 0, 0))
 	graph = mapper.plot(["loss", "accuracy"]) 
 
 
