@@ -11,8 +11,22 @@ class Mapper:
 #--------------------------------------------------------------------------------------------------------------|
 
 	#Plotting points from every given metric
-	def plot_points(self, points : np.ndarray) -> np.ndarray:
-		pass 
+	def plot_points(self, graph : np.ndarray, points : np.ndarray
+					, colors : list, minimas : list, maximas : list) -> np.ndarray: 
+		space_map = np.zeros((400, 550, 3), np.uint8)
+		H, W = graph.shape[:2]
+		H, W = H - 10, W - 20
+		space_map = self.fill(space_map.copy(), self.bg_color)
+		for pts, color in zip(points, colors):
+			new_pts = np.array(np.vstack((
+				np.interp(pts[:, 0], tuple(minimas), (0, 550)),
+				np.absolute(400-np.interp(pts[:, 1], tuple(maximas), (0, 400))))
+				).T, dtype=np.int0)
+			cv2.polylines(space_map, [new_pts], False, color, 2)
+			last_point = new_pts[-1]
+			cv2.circle(space_map, (last_point[0]-8, last_point[1]), 10, color, -1)
+		graph[30:H-40, 70:W] = space_map
+		return graph
 
 #--------------------------------------------------------------------------------------------------------------|
 
@@ -24,14 +38,19 @@ class Mapper:
 #--------------------------------------------------------------------------------------------------------------|
 
 	#Configure the info related to each plot
-	def show_legend(self, detail : list) -> list:
-		pass 
-
-#--------------------------------------------------------------------------------------------------------------|
-
-	#Remove point if the graph is filled up
-	def update(self, length : int) -> bool:
-		pass
+	def show_legend(self, org : np.ndarray, detail : list, color : tuple) -> list:
+		graph = np.zeros((480, 760, 3), dtype=np.uint8)
+		graph = self.fill(graph.copy(), self.bg_color)
+		graph[:, 120:760] = org
+		color = - np.array(color, np.uint8)
+		neg_color = (int(color[0]), int(color[1]), int(color[2]))
+		X, y = 20, 40 
+		for metric, color in zip(*detail):
+			cv2.putText(graph, metric, (X-5, y), cv2.FONT_HERSHEY_TRIPLEX, 0.7, neg_color, 2)
+			cv2.line(graph, (X, y+20), (X+60, y+20), color, 4) 
+			y += 40
+		cv2.rectangle(graph, (10, 20), (130, y-10), neg_color, 2)
+		return graph
 
 #--------------------------------------------------------------------------------------------------------------|
 
@@ -51,13 +70,21 @@ class Mapper:
 #--------------------------------------------------------------------------------------------------------------|
 
 	#The name itself says it all
-	def show_ticks(self, graph : np.ndarray, minimas : list, maximas : list, color : tuple):
+	def show_axes(self, graph : np.ndarray, minimas : list, maximas : list, color : tuple):
 		H, W = graph.shape[:2]
 		H, W = H - 10, W - 20
 		color = - np.array(color, np.uint8)
 		color = (int(color[0]), int(color[1]), int(color[2]))
+		#Draw the axes
+		#===============================================
 		cv2.line(graph, (20, H-10), (20, 10), color, 2)
 		cv2.line(graph, (20, H-10), (W, H-10), color, 2)
+<<<<<<< HEAD
+=======
+		#===============================================
+		#Draw xticks and yticks based on global points
+		#======================================================================================================
+>>>>>>> plot_branch
 		xticks = [[[50, H-15], [50, H-5]], [[W-20, H-15], [W-20, H-5]]]
 		yticks = [[[15, H-40], [25, H-40]], [[15, 30], [25, 30]]] 
 		minimas[1], maximas[0] = maximas[0], minimas[1]  
@@ -70,6 +97,10 @@ class Mapper:
 			ytick[0][1] -= 5
 			cv2.putText(graph, str(int(gb_pt1)), tuple(xtick[0]), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
 			cv2.putText(graph, str(round(gb_pt2, 2)), tuple(ytick[0]), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
+<<<<<<< HEAD
+=======
+		#======================================================================================================
+>>>>>>> plot_branch
 		return graph
 
 #--------------------------------------------------------------------------------------------------------------|
@@ -79,7 +110,8 @@ class Mapper:
 		graph = np.zeros((480, 640, 3), dtype=np.uint8)
 		graph = self.fill(graph.copy(), self.bg_color)
 		minimas, maximas = self.calc_globalPoints(points)
-		graph = self.show_ticks(graph.copy(), minimas, maximas, self.bg_color)
+		graph = self.show_axes(graph.copy(), minimas, maximas, self.bg_color)
+		self.plot_points(graph, self.points, self.colors, minimas, maximas)
 		return graph
 
 
@@ -88,8 +120,10 @@ class Mapper:
 	#Main function(brain of the class)
 	def plot(self, metrics : list) -> np.ndarray:
 		graph = self.preprocess(self.points)
+		graph = self.show_legend(graph, [metrics, self.colors], self.bg_color)
 		cv2.imshow("", graph)
 		cv2.waitKey(0)
+<<<<<<< HEAD
 
 #--------------------------------------------------------------------------------------------------------------|
 
@@ -101,3 +135,5 @@ def main():
 
 if __name__ == '__main__':
 	main()
+=======
+>>>>>>> plot_branch
