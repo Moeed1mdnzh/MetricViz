@@ -19,8 +19,8 @@ class Mapper:
 		space_map = self.fill(space_map.copy(), self.bg_color)
 		for pts, color in zip(points, colors):
 			new_pts = np.array(np.vstack((
-				np.interp(pts[:, 0], tuple(minimas), (0, 550)),
-				np.absolute(400-np.interp(pts[:, 1], tuple(maximas), (0, 400))))
+				np.interp(pts[:, 0], tuple(minimas), (10, 540)),
+				np.absolute(400-np.interp(pts[:, 1], tuple(maximas), (10, 390))))
 				).T, dtype=np.int0)
 			cv2.polylines(space_map, [new_pts], False, color, 2)
 			last_point = new_pts[-1]
@@ -115,5 +115,4 @@ class Mapper:
 	def plot(self, metrics : list) -> np.ndarray:
 		graph = self.preprocess(self.points)
 		graph = self.show_legend(graph, [metrics, self.colors], self.bg_color)
-		cv2.imshow("", graph)
-		cv2.waitKey(0)
+
