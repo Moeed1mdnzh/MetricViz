@@ -3,7 +3,7 @@ As you may have already seen in the description, this project is supposed to be 
 Take a look at what i meant by the above sentence <br />
 ![Game Process](https://github.com/Moeed1mdnzh/MetricViz/blob/master/assests/video_test.gif)
 <br />
-To accomplish such a thing for your own keras modelw, you first need to complete a few steps.Don't be lazy ;)
+To accomplish such a thing for your own keras models, you first need to complete a few steps.Don't be lazy ;)
 ## Steps
 ### step-1
 Clone the repo and install requirements.txt using the below commands to get the packages installed on your *virtual environment*.
