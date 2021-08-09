@@ -17,3 +17,4 @@ class Compressor:
 			self.save.write(frame)
 		self.save.release()
 		cv2.imwrite("final.jpg", self.frames[-1])
+		
