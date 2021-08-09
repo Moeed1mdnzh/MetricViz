@@ -115,3 +115,4 @@ class Mapper:
 	def plot(self, metrics : list) -> np.ndarray:
 		graph = self.preprocess(self.points)
 		graph = self.show_legend(graph, [metrics, self.colors], self.bg_color)
+		return graph
