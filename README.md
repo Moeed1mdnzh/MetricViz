@@ -12,7 +12,7 @@ git clone https://github.com/Moeed1mdnzh/MetricViz.git
 pip install -r requirements.txt 
 ```
 ### step-2
-Say that you are currently in the file of your keras model.Import the callback from the file vizCallback.py. 
+Say that you are currently in the file of your keras model.Import the callback from the file **vizCallback.py**. 
 ```python
 from vizCallback import TrainViz 
 ```
