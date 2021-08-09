@@ -39,17 +39,17 @@ class Mapper:
 
 	#Configure the info related to each plot
 	def show_legend(self, org : np.ndarray, detail : list, color : tuple) -> list:
-		graph = np.zeros((480, 760, 3), dtype=np.uint8)
+		graph = np.zeros((480, 810, 3), dtype=np.uint8)
 		graph = self.fill(graph.copy(), self.bg_color)
-		graph[:, 120:760] = org
+		graph[:, 170:810] = org
 		color = - np.array(color, np.uint8)
 		neg_color = (int(color[0]), int(color[1]), int(color[2]))
 		X, y = 20, 40 
 		for metric, color in zip(*detail):
 			cv2.putText(graph, metric, (X-5, y), cv2.FONT_HERSHEY_TRIPLEX, 0.7, neg_color, 2)
-			cv2.line(graph, (X, y+20), (X+60, y+20), color, 4) 
+			cv2.line(graph, (X, y+20), (X+90, y+20), color, 4) 
 			y += 40
-		cv2.rectangle(graph, (10, 20), (130, y-10), neg_color, 2)
+		cv2.rectangle(graph, (10, 20), (180, y-10), neg_color, 2)
 		return graph
 
 #--------------------------------------------------------------------------------------------------------------|

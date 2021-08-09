@@ -7,7 +7,7 @@ class Compressor:
 	def __init__(self, frames : list, fps: int = 2):
 		self.frames = frames
 		fourcc = cv2.VideoWriter_fourcc(*'XVID')
-		self.save = cv2.VideoWriter('MetricViz-Output.avi', fourcc, fps, (760,480))
+		self.save = cv2.VideoWriter('MetricViz-Output.avi', fourcc, fps, (810,480))
 
 #-----------------------------------------------------------------------------------|
 
@@ -16,3 +16,4 @@ class Compressor:
 		for frame in self.frames:
 			self.save.write(frame)
 		self.save.release()
+		cv2.imwrite("final.jpg", self.frames[-1])
