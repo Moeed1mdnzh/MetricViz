@@ -14,6 +14,8 @@ class TrainViz(Callback):
 		self.frames = [] 
 		self.points = [] 
 
+#---------------------------------------------------------------------------------------|
+
 	def on_epoch_end(self, epoch, logs=None): 
 		if logs is not None:
 			for i, (name, val) in enumerate(logs.items()):
@@ -27,12 +29,12 @@ class TrainViz(Callback):
 				mapper = Mapper(np.array(self.points), self.colors, self.bg_color)
 				graph = mapper.plot(self.names) 
 				self.frames.append(graph)
+				
+#---------------------------------------------------------------------------------------|
 
 	def on_train_end(self, logs=None):
+		mapper = Mapper(np.array(self.points), self.colors, self.bg_color)
+		graph = mapper.plot(self.names) 
+		self.frames.append(graph)
 		compressor = Compressor(self.frames)
 		compressor.compress()
-
-class TestViz(Callback):
-	pass
-
-

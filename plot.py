@@ -24,7 +24,7 @@ class Mapper:
 				).T, dtype=np.int0)
 			cv2.polylines(space_map, [new_pts], False, color, 2)
 			last_point = new_pts[-1]
-			cv2.circle(space_map, (last_point[0]-8, last_point[1]), 10, color, -1)
+			cv2.circle(space_map, (last_point[0], last_point[1]), 10, color, -1)
 		graph[30:H-40, 70:W] = space_map
 		return graph
 
@@ -67,10 +67,13 @@ class Mapper:
 		#=======================================================|
 		return minimas, maximas
 
+	def calc_avg(self, points : list):
+		return [points[:, :, 0].mean(), points[:, :, 1].mean()] 
+
 #--------------------------------------------------------------------------------------------------------------|
 
 	#The name itself says it all
-	def show_axes(self, graph : np.ndarray, minimas : list, maximas : list, color : tuple):
+	def show_axes(self, graph : np.ndarray, minimas : list, maximas : list, color : tuple, avgs : list):
 		H, W = graph.shape[:2]
 		H, W = H - 10, W - 20
 		color = - np.array(color, np.uint8)
@@ -95,6 +98,18 @@ class Mapper:
 			cv2.putText(graph, str(int(gb_pt1)), tuple(xtick[0]), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
 			cv2.putText(graph, str(round(gb_pt2, 2)), tuple(ytick[0]), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
 		#======================================================================================================
+		#Draw average ticks
+		avgticks = [[[325, H-15], [325, H-5]], [[15, 230], [25, 230]]] 
+		for i, (avgtick, avg) in enumerate(zip(avgticks, avgs)): 
+			cv2.line(graph, tuple(avgtick[0]), tuple(avgtick[1]), color, 2)
+			if i == 0: 
+				avgtick[0][1] -= 5
+				avgtick[0][0] -= 5
+			else:
+				avgtick[0][1] -= 5
+				avgtick[0][0] += 10
+			cv2.putText(graph, str(int(avg) if i == 0 else round(avg, 2)), tuple(avgtick[0]), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
+		#======================================================================================================
 		return graph
 
 #--------------------------------------------------------------------------------------------------------------|
@@ -104,7 +119,8 @@ class Mapper:
 		graph = np.zeros((480, 640, 3), dtype=np.uint8)
 		graph = self.fill(graph.copy(), self.bg_color)
 		minimas, maximas = self.calc_globalPoints(points)
-		graph = self.show_axes(graph.copy(), minimas, maximas, self.bg_color)
+		avgs = self.calc_avg(points)
+		graph = self.show_axes(graph.copy(), minimas, maximas, self.bg_color, avgs)
 		self.plot_points(graph, self.points, self.colors, minimas, maximas)
 		return graph
 
@@ -115,4 +131,5 @@ class Mapper:
 	def plot(self, metrics : list) -> np.ndarray:
 		graph = self.preprocess(self.points)
 		graph = self.show_legend(graph, [metrics, self.colors], self.bg_color)
-		return graph
+		return graph 
+		
