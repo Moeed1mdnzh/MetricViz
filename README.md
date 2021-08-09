@@ -25,7 +25,7 @@ callback = TrainViz(metricColors, bg_color = (1, 1, 1), fps = 3)
 ***1 - metricColors : A list containing each color for each metric*** <br />
 ***2 - bg_color : The color of the background(Don't set it to (0, 0, 0) for axes color purposes)*** <br />
 ***3 - fps : The frame rate for the animation(Default is recommended)*** <br />
-***Set them on your own conditions.***
+*Set them on your own conditions.*
 
 ### step-4
 Congrats you've made it through to the final step.<br />Pass the callback to the .fit function like the given example below
