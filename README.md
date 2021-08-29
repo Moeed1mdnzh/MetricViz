@@ -5,18 +5,18 @@ Take a look at what i meant by the above sentence <br />
 <br />
 To accomplish such a thing for your own keras models, you first need to complete a few steps.Don't be lazy ;)
 ## Steps
-### step-1
+### step 1
 Clone the repo and install requirements.txt using the below commands to get the packages installed on your *virtual environment*.
 ```python
 git clone https://github.com/Moeed1mdnzh/MetricViz.git
 pip install -r requirements.txt 
 ```
-### step-2
+### step 2
 Say that you are currently in the file of your keras model.Import the callback from the file **vizCallback.py**. 
 ```python
 from vizCallback import TrainViz 
 ```
-### step-3
+### step 3
 Before using the callback,compile your model.To use the callback you have
 to specify the callback and pass a couple of optional arguments to the model.Let me give you a quick guide about what these arguments are about
 ```python
@@ -27,7 +27,7 @@ callback = TrainViz(metricColors, bg_color = (1, 1, 1), fps = 3)
 ***3 - fps : The frame rate for the animation(Default is recommended)*** <br />
 *Set them on your own conditions.*
 
-### step-4
+### step 4
 Congrats you've made it through to the final step.<br />Pass the callback to the .fit function like the given example below
 ```python
 model.fit(X_train, y_train, epochs=30, batch_size=64, callbacks=[callback], validation_data=(X_test, y_test))
