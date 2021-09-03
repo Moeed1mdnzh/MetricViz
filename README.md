@@ -18,7 +18,7 @@ from vizCallback import TrainViz
 ```
 ### step 3
 Before using the callback,compile your model.To use the callback you have
-to specify the callback and pass a couple of optional arguments to the model.Let me give you a quick guide about what these arguments are about
+to specify the callback and pass a couple of optional arguments to the model.Let me give you a quick guide about what these arguments are about.
 ```python
 callback = TrainViz(metricColors, bg_color = (1, 1, 1), fps = 3)
 ```
