@@ -1,7 +1,7 @@
 # MetricViz
 As you may have already seen in the description, this project is supposed to be a keras callback to visualize the computed **metrics** as graphs in an animation. <br />
 Take a look at what i meant by the above sentence <br />
-![Game Process](https://github.com/Moeed1mdnzh/MetricViz/blob/master/assests/video_test.gif)
+![Game Process](https://github.com/Moeed1mdnzh/MetricViz/blob/master/assets/video_test.gif)
 <br />
 To accomplish such a thing for your own keras models, you first need to complete a few steps.Don't be lazy ;)
 ## Steps
@@ -34,4 +34,4 @@ model.fit(X_train, y_train, epochs=30, batch_size=64, callbacks=[callback], vali
 ```
 Once the training finishes you should have two new files in your directory.One named as *<MetricViz-Output.avi>* which is the animation and the other one 
 *<final.jpg>* which is the final graph associated with your model performance like the following image.
-![](https://github.com/Moeed1mdnzh/MetricViz/blob/master/assests/image_test.jpg)
+![](https://github.com/Moeed1mdnzh/MetricViz/blob/master/assets/image_test.jpg)
